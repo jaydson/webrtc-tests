@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WebRTC</title>
+</head>
+<body>	
+	<script>
+		navigator.getMedia = ( navigator.getUserMedia ||
+		navigator.webkitGetUserMedia ||
+		navigator.mozGetUserMedia ||
+		navigator.msGetUserMedia);
+
+		navigator.getMedia ({
+			video: true,
+			audio: true
+		},
+
+		// successCallback
+		function(localMediaStream) {
+			var videoElem = document.createElement('video');
+			document.body.appendChild(videoElem);
+			var video = document.querySelector('video');
+			video.src = window.URL.createObjectURL(localMediaStream);
+			video.onloadedmetadata = function(e) {
+		 		video.play();
+			};
+		},
+
+		// errorCallback
+		function(err) {
+			console.log("The following error occured: ", err);
+		}
+	);
+	</script>
+</body>
+</html>
