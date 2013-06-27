@@ -3,13 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>WebRTC</title>
+	<style>
+		#container {
+			border : solid 1px;
+			width: 800px;
+			height: 600px;
+		}
+	</style>
 </head>
-<body>	
+<body>
+	<div id="container">
+		<video autoplay></video>
+	</div>
 	<script>
 		navigator.getMedia = ( navigator.getUserMedia ||
 		navigator.webkitGetUserMedia ||
 		navigator.mozGetUserMedia ||
 		navigator.msGetUserMedia);
+		window.URL = window.URL || window.webkitURL;
 
 		navigator.getMedia ({
 			video: true,
@@ -18,11 +29,10 @@
 
 		// successCallback
 		function(localMediaStream) {
-			var videoElem = document.createElement('video');
-			document.body.appendChild(videoElem);
 			var video = document.querySelector('video');
 			video.src = window.URL.createObjectURL(localMediaStream);
 			video.onloadedmetadata = function(e) {
+				console.log('load media');
 		 		video.play();
 			};
 		},
